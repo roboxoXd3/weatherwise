@@ -6,6 +6,10 @@
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
 	<string>Weather Wise</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+<string>We need your location to provide weather updates.</string>
+<key>NSLocationAlwaysUsageDescription</key>
+<string>We need your location to provide weather updates.</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
