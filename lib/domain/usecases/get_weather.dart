@@ -11,4 +11,8 @@ class GetWeather {
   Future<Weather> call(String cityName) async {
     return await repository.getWeather(cityName);
   }
+
+  Future<Weather> getByCoordinates(double latitude, double longitude) async {
+    return await repository.getWeatherByCoordinates(latitude, longitude);
+  }
 }

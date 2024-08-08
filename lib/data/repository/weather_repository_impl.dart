@@ -5,6 +5,7 @@ import 'package:weather_icons/weather_icons.dart';
 
 import '../../domain/entities/weather.dart';
 import '../data_sources/weather_data_source.dart';
+import '../models/weather_model.dart';
 
 class WeatherRepositoryImpl implements WeatherRepository {
   final WeatherDataSource dataSource;
@@ -15,7 +16,18 @@ class WeatherRepositoryImpl implements WeatherRepository {
   Future<Weather> getWeather(String cityName) async {
     final weatherModel = await dataSource.getWeather(cityName);
 
-    // Convert WeatherModel to Weather entity
+    return _mapWeatherModelToEntity(weatherModel);
+  }
+
+  Future<Weather> getWeatherByCoordinates(
+      double latitude, double longitude) async {
+    final weatherModel =
+        await dataSource.getWeatherByCoordinates(latitude, longitude);
+
+    return _mapWeatherModelToEntity(weatherModel);
+  }
+
+  Weather _mapWeatherModelToEntity(WeatherModel weatherModel) {
     return Weather(
       cityName: weatherModel.cityName,
       country: weatherModel.country,
@@ -44,7 +56,6 @@ class WeatherRepositoryImpl implements WeatherRepository {
     );
   }
 
-  // Helper method to convert icon code to IconData
   IconData getWeatherIcon(String iconCode) {
     switch (iconCode) {
       case '01d':
@@ -78,7 +89,7 @@ class WeatherRepositoryImpl implements WeatherRepository {
       case '50n':
         return WeatherIcons.fog;
       default:
-        return WeatherIcons.day_sunny;
+        return WeatherIcons.cloud;
     }
   }
 }

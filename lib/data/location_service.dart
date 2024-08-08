@@ -1,3 +1,4 @@
+import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 
 class LocationService {
@@ -18,16 +19,32 @@ class LocationService {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
         // Permissions are denied, return an error.
+        print('Location permissions are denied.');
+
         throw Exception('Location permissions are denied.');
       }
     }
 
     if (permission == LocationPermission.deniedForever) {
       // Permissions are denied forever, return an error.
+      print('Location permissions are permanently denied.');
+
       throw Exception('Location permissions are permanently denied.');
     }
 
     // Return the current location
     return await Geolocator.getCurrentPosition();
+  }
+
+  Future<String> getCityNameFromCoordinates(
+      double latitude, double longitude) async {
+    List<Placemark> placemarks =
+        await placemarkFromCoordinates(latitude, longitude);
+    if (placemarks.isNotEmpty) {
+      return placemarks.first.locality ?? 'Unknown Location';
+    } else {
+      print('No placemarks found');
+      throw Exception('No placemarks found');
+    }
   }
 }

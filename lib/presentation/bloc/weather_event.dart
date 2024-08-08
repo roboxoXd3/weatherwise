@@ -25,3 +25,13 @@ class ToggleTemperatureUnit extends WeatherEvent {
   @override
   List<Object> get props => [isCelsius];
 }
+
+class FetchWeatherByCoordinates extends WeatherEvent {
+  final double latitude;
+  final double longitude;
+
+  const FetchWeatherByCoordinates(this.latitude, this.longitude);
+
+  @override
+  List<Object> get props => [latitude, longitude];
+}
